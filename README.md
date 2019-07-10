@@ -5,4 +5,4 @@
 - Discuz!ML v.3.2 
 - Discuz!ML v.3.3
 
-##### athor: heyzm
+##### Author: heyzm
