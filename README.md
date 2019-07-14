@@ -5,7 +5,7 @@
 - Discuz!ML v.3.2 
 - Discuz!ML v.3.3
 
-Usage: python poc.py <url> <php function>
+Usage: ``python poc.py <url> <php function>``
 ```
 python discuz3.x_poc.py url system(id)
 ```
