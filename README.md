@@ -7,7 +7,7 @@
 
 Usage: python poc.py <url> <php function>
 ```
-python poc url system(id)
+python poc.py url system(id)
 ```
 
 ### Author: heyzm
